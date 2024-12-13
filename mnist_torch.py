@@ -19,19 +19,22 @@ class BobNetTorchModel(nn.Module):
 class BobNetTorch:
     def __init__(self, n_in: int, n_hidden: int, n_out: int) -> None:
         self.model = BobNetTorchModel(n_in=n_in, n_hidden=n_hidden, n_out=n_out)
-        self.n_in, self.n_hidden, self.n_out = n_in, n_hidden, n_out
 
     def fit(self, X: torch.Tensor, y: torch.Tensor, lr: float=0.1, epochs: int=100, verbose: bool=True) -> None:
         optimizer = torch.optim.SGD(params=self.model.parameters(), lr=lr) 
         criterion = nn.CrossEntropyLoss() 
-        y_one_hot = F.one_hot(y.long(), num_classes=self.n_out).float()
         for epoch in range(epochs):
-            self.model.train() 
+            # Clear gradients 
+            optimizer.zero_grad()
+
+            # Forward pass 
             y_hat = self.model.forward(X)
-            optimizer.zero_grad() 
-            loss = criterion(y_hat, y_one_hot) 
+
+            # Cross-Entropy loss
+            loss = criterion(y_hat, y.long()) 
             loss.backward() 
             optimizer.step()
+            
             if verbose and epoch % 10 == 0:
                 # Calculate accuracy
                 preds = torch.argmax(y_hat, dim=1)
