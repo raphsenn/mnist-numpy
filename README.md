@@ -5,7 +5,14 @@ MNIST (Digits &amp; Fashion) Neural Network from scratch in raw NumPy, benchmark
 
 ## Using PyTorch
 
+##### 2-Layer MLP
+* 784 Input neurons
+* 10 Hidden neurons
+* 10 Output neurons
+
 #### Using Stochastic Gradient Descent (lr=0.01) and Cross-Entropy:
+
+##### Training:
 
 ```console
 Epoch: 0	Loss: 24.33	Accuracy: 0.1121
@@ -30,7 +37,21 @@ Epoch: 180	Loss: 0.18	Accuracy: 0.9455
 Epoch: 190	Loss: 0.21	Accuracy: 0.9324
 ```
 
+##### Testing:
+
+```console
+Accuracy on Testing set: 0.92
+```
+
+
 #### Using Adam (learning rate = 0.001) and Cross-Entropy:
+
+##### 2-Layer MLP
+* 784 Input neurons
+* 512 Hidden neurons
+* 10 Output neurons
+
+##### Testing:
 
 ```console
 Epoch: 0	Loss: 31.40	Accuracy: 0.0635
@@ -55,8 +76,49 @@ Epoch: 180	Loss: 0.07	Accuracy: 0.9826
 Epoch: 190	Loss: 0.06	Accuracy: 0.9845
 ```
 
+##### Testing:
+
+```console
+Accuracy on Testing set: 0.97
+```
+
+## Using NumPy
+
+##### 2-Layer MLP
+* 784 Input neurons
+* 10 Hidden neurons
+* 10 Output neurons
 
 
+##### Training:
+```console
+Epoch: 0	Cross-Entropy: 1.24	Accuracy: 0.59
+Epoch: 10	Cross-Entropy: 0.52	Accuracy: 0.84
+Epoch: 20	Cross-Entropy: 0.45	Accuracy: 0.87
+Epoch: 30	Cross-Entropy: 0.42	Accuracy: 0.88
+Epoch: 40	Cross-Entropy: 0.40	Accuracy: 0.88
+Epoch: 50	Cross-Entropy: 0.39	Accuracy: 0.89
+Epoch: 60	Cross-Entropy: 0.38	Accuracy: 0.89
+Epoch: 70	Cross-Entropy: 0.37	Accuracy: 0.89
+Epoch: 80	Cross-Entropy: 0.37	Accuracy: 0.90
+Epoch: 90	Cross-Entropy: 0.36	Accuracy: 0.90
+Epoch: 100	Cross-Entropy: 0.35	Accuracy: 0.90
+Epoch: 110	Cross-Entropy: 0.35	Accuracy: 0.90
+Epoch: 120	Cross-Entropy: 0.34	Accuracy: 0.90
+Epoch: 130	Cross-Entropy: 0.34	Accuracy: 0.90
+Epoch: 140	Cross-Entropy: 0.33	Accuracy: 0.90
+Epoch: 150	Cross-Entropy: 0.33	Accuracy: 0.91
+Epoch: 160	Cross-Entropy: 0.32	Accuracy: 0.91
+Epoch: 170	Cross-Entropy: 0.32	Accuracy: 0.91
+Epoch: 180	Cross-Entropy: 0.32	Accuracy: 0.91
+Epoch: 190	Cross-Entropy: 0.32	Accuracy: 0.91
+```
+
+##### Testing:
+
+```console
+Accuracy on Testing set: 0.9118
+```
 
 ## License
 * MNIST Digits: Public domain, created by Yann LeCun and collaborators.
