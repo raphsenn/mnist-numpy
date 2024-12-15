@@ -6,7 +6,7 @@ def relu(z: np.ndarray, derv: bool=False) -> np.ndarray:
     return np.maximum(z, 0)
 
 
-def softmax(z: np.ndarray, derv: bool=False) -> np.ndarray:
+def softmax(z: np.ndarray) -> np.ndarray:
     return np.exp(z) / np.sum(np.exp(z), axis=1, keepdims=True)
 
 
@@ -18,10 +18,11 @@ def one_hot(y: np.ndarray, num_classes: int=10) -> np.ndarray:
 
 class BobNet:
     def __init__(self, n_in: int, n_hidden: int, n_out: int) -> None:
-        self.w1 = np.random.rand(n_in, n_hidden)-0.5
-        self.b1 = np.random.rand(n_hidden)-0.5
-        self.w2 = np.random.rand(n_hidden, n_out)-0.5
-        self.b2 = np.random.rand(n_out)-0.5
+        # He Initialization
+        self.w1 = np.random.normal(0, np.sqrt(2/n_in), (n_in, n_hidden))
+        self.b1 = np.zeros(n_hidden)
+        self.w2 = np.random.normal(0, np.sqrt(2/n_hidden), (n_hidden, n_out))
+        self.b2 = np.zeros(n_out)
 
     def fit(self,
             X: np.ndarray,
@@ -50,7 +51,7 @@ class BobNet:
                 h2 = softmax(z2)                                            # N x 10
 
                 # Backpropagation
-                dz2 = (h2 - y_batch_hot)                                    # N x 10
+                dz2 = h2 - y_batch_hot                                      # N x 10
                 dw2 = np.dot(h1.T, dz2)                                     # 512 x 10
                 db2 = np.sum(dz2, axis=0)
 
@@ -70,7 +71,7 @@ class BobNet:
                 cross_entropy = - np.sum(y_hot * np.log(y_hat))/N
                 y_hat = np.argmax(y_hat, 1) 
                 accuracy = (y_hat == y).mean()
-                print(f'Epoch: {epoch}\tCross-Entropy: {cross_entropy:.2f}\tAccuracy: {accuracy:.2f}')
+                print(f'Epoch: {epoch}\tCross-Entropy: {cross_entropy:.4f}\tAccuracy: {accuracy:.4f}')
 
     def forward(self, x: np.ndarray) -> np.ndarray:
         x = np.dot(x, self.w1) + self.b1
