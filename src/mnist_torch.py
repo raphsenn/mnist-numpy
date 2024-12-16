@@ -46,9 +46,10 @@ class BobNetTorch:
             if verbose and epoch % 10 == 0:
                 # Calculate accuracy
                 y_hat = self.model.forward(X) 
+                cross_entropy = criterion(y_hat, y.long()) 
                 preds = torch.argmax(y_hat, dim=1)
                 accuracy = (preds == y).float().mean() 
-                print(f'Epoch: {epoch}\tCross-Entropy: {loss.item():.4f}\tAccuracy: {accuracy:.4f}')
+                print(f'Epoch: {epoch}\tCross-Entropy: {cross_entropy.item():.4f}\tAccuracy: {accuracy:.4f}')
 
     def predict(self, x: torch.Tensor) -> torch.Tensor:
         out = self.model.forward(x)
