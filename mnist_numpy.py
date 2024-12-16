@@ -32,7 +32,7 @@ class BobNet:
             batch_size: int=32,
             verbose: bool=True) -> None:
         N = X.shape[0] 
-
+        
         # Simple implementation of Stochastic Gradient Descent
         for epoch in range(epochs):
             # Shuffle dataset
@@ -52,13 +52,13 @@ class BobNet:
 
                 # Backpropagation
                 dz2 = h2 - y_batch_hot                                      # N x 10
-                dw2 = np.dot(h1.T, dz2)                                     # 512 x 10
-                db2 = np.sum(dz2, axis=0)
-
-                dh1 = np.dot(dz2, self.w2.T)                                # N x 512
+                dw2 = np.dot(h1.T, dz2)/batch_size                          # 512 x 10
+                db2 = np.sum(dz2, axis=0)/batch_size
+                
+                dh1 = np.dot(dz2, self.w2.T)/batch_size                     # N x 512
                 dz1 = dh1 * relu(z1, derv=True)                             # N x 512
-                dw1 = np.dot(X_batch.T, dh1)                                # 784 x 512
-                db1 = np.sum(dz1, axis=0)
+                dw1 = np.dot(X_batch.T, dh1)/batch_size                     # 784 x 512
+                db1 = np.sum(dz1, axis=0)/batch_size
 
                 # Update Parameters
                 self.w2 = self.w2 - lr * dw2
